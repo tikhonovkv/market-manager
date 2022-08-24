@@ -9,14 +9,18 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
-        @php
-        $url = env('APP_URL');
-        echo('
-        <script type="module" src="'.$url.':5174/@vite/client"></script>
-        <script type="module" src="'.$url.':5174/resources/js/app.js"></script>
-        ');@endphp
         <!-- Scripts -->
         @routes
+        @if (env('APP_ENV') == 'local')
+            @php
+            $url = env('APP_URL');
+            echo('
+            <script type="module" src="'.$url.':5174/@vite/client"></script>
+            <script type="module" src="'.$url.':5174/resources/js/app.js"></script>
+            ');@endphp
+        @else
+            @vite('resources/js/app.js')
+        @endif
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
